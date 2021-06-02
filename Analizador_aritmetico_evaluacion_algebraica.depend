@@ -1,0 +1,188 @@
+# depslib dependency file v1.0
+1226244478 source:/opt/home/freddy/development/Cursos/Curso C-C++/Clases/Clase16/prj/Analizador_aritmetico_evaluacion_algebraica/expsymbol.cc
+	<stack>
+	<queue>
+	"enum_base.h"
+	"expsymbol.h"
+
+1226248086 /opt/home/freddy/development/Cursos/Curso C-C++/Clases/Clase16/prj/Analizador_aritmetico_evaluacion_algebraica/enum_base.h
+
+1225163427 /opt/home/freddy/development/Cursos/Curso C-C++/Clases/Clase16/prj/Analizador_aritmetico_evaluacion_algebraica/expsymbol.h
+
+1226251227 source:/opt/home/freddy/development/Cursos/Curso C-C++/Clases/Clase16/prj/Analizador_aritmetico_evaluacion_algebraica/main_analizador_aritmetico.cc
+	<iostream>
+	<string>
+	<stack>
+	<queue>
+	<map>
+	"enum_base.h"
+	"aritmetic_base.h"
+	"expsymbol.h"
+	"infix2postfix.h"
+	"postfixEval.h"
+	"aritmetic_expression_eval.h"
+	"d_except.h"
+
+1226249081 /opt/home/freddy/development/Cursos/Curso C-C++/Clases/Clase16/prj/Analizador_aritmetico_evaluacion_algebraica/aritmetic_base.h
+
+1226250034 /opt/home/freddy/development/Cursos/Curso C-C++/Clases/Clase16/prj/Analizador_aritmetico_evaluacion_algebraica/infix2postfix.h
+
+1226246047 /opt/home/freddy/development/Cursos/Curso C-C++/Clases/Clase16/prj/Analizador_aritmetico_evaluacion_algebraica/postfixEval.h
+
+1225167263 /opt/home/freddy/development/Cursos/Curso C-C++/Clases/Clase16/prj/Analizador_aritmetico_evaluacion_algebraica/aritmetic_expression_eval.h
+
+1222628040 /opt/home/freddy/development/Cursos/Curso C-C++/Clases/Clase16/prj/Analizador_aritmetico_evaluacion_algebraica/d_except.h
+	<sstream>
+	<string>
+
+1226251581 source:/opt/home/freddy/development/Cursos/Curso C-C++/Clases/Clase16/prj/Analizador_aritmetico_evaluacion_algebraica/infix2postfix.cc
+	<iostream>
+	<string>
+	<stack>
+	<queue>
+	<map>
+	<ctype.h>
+	<stdlib.h>
+	"enum_base.h"
+	"aritmetic_base.h"
+	"expsymbol.h"
+	"d_except.h"
+	"infix2postfix.h"
+
+1226250034 source:/opt/home/freddy/development/Cursos/Curso C-C++/Clases/Clase16/prj/Analizador_aritmetico_evaluacion_algebraica/postfixEval.cc
+	<math.h>
+	<iostream>
+	<string>
+	<stack>
+	<queue>
+	<map>
+	<ctype.h>
+	<stdlib.h>
+	"enum_base.h"
+	"aritmetic_base.h"
+	"postfixEval.h"
+	"d_except.h"
+
+1226244478 source:/home/freddy/Documents/UCR_IE0217/GitCurso/IE0217/Semana04/Clase11/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/expsymbol.cc
+	<stack>
+	<queue>
+	"enum_base.h"
+	"expsymbol.h"
+
+1226248086 /home/freddy/Documents/UCR_IE0217/GitCurso/IE0217/Semana04/Clase11/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/enum_base.h
+
+1225163428 /home/freddy/Documents/UCR_IE0217/GitCurso/IE0217/Semana04/Clase11/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/expsymbol.h
+
+1226252334 source:/home/freddy/Documents/UCR_IE0217/GitCurso/IE0217/Semana04/Clase11/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/main_analizador_aritmetico.cc
+	<iostream>
+	<string>
+	<stack>
+	<queue>
+	<map>
+	"enum_base.h"
+	"aritmetic_base.h"
+	"expsymbol.h"
+	"infix2postfix.h"
+	"postfixEval.h"
+	"aritmetic_expression_eval.h"
+	"d_except.h"
+
+1226249082 /home/freddy/Documents/UCR_IE0217/GitCurso/IE0217/Semana04/Clase11/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/aritmetic_base.h
+
+1226250034 /home/freddy/Documents/UCR_IE0217/GitCurso/IE0217/Semana04/Clase11/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/infix2postfix.h
+
+1226246048 /home/freddy/Documents/UCR_IE0217/GitCurso/IE0217/Semana04/Clase11/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/postfixEval.h
+
+1225167264 /home/freddy/Documents/UCR_IE0217/GitCurso/IE0217/Semana04/Clase11/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/aritmetic_expression_eval.h
+
+1222628040 /home/freddy/Documents/UCR_IE0217/GitCurso/IE0217/Semana04/Clase11/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/d_except.h
+	<sstream>
+	<string>
+
+1226252304 source:/home/freddy/Documents/UCR_IE0217/GitCurso/IE0217/Semana04/Clase11/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/postfixEval.cc
+	<math.h>
+	<iostream>
+	<string>
+	<stack>
+	<queue>
+	<map>
+	<ctype.h>
+	<stdlib.h>
+	"enum_base.h"
+	"aritmetic_base.h"
+	"postfixEval.h"
+	"d_except.h"
+
+1622037568 source:/home/freddy/Documents/UCR_IE0217/Semestral/IE0217/Semana08/Clase15/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/infix2postfix.cc
+	<iostream>
+	<string>
+	<stack>
+	<queue>
+	<map>
+	<ctype.h>
+	<stdlib.h>
+	"enum_base.h"
+	"aritmetic_base.h"
+	"expsymbol.h"
+	"d_except.h"
+	"infix2postfix.h"
+
+1621956858 /home/freddy/Documents/UCR_IE0217/Semestral/IE0217/Semana08/Clase15/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/enum_base.h
+
+1621956858 /home/freddy/Documents/UCR_IE0217/Semestral/IE0217/Semana08/Clase15/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/aritmetic_base.h
+
+1621956858 /home/freddy/Documents/UCR_IE0217/Semestral/IE0217/Semana08/Clase15/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/expsymbol.h
+
+1621956858 /home/freddy/Documents/UCR_IE0217/Semestral/IE0217/Semana08/Clase15/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/d_except.h
+	<sstream>
+	<string>
+
+1621956858 /home/freddy/Documents/UCR_IE0217/Semestral/IE0217/Semana08/Clase15/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/infix2postfix.h
+
+1622037538 source:/home/freddy/Documents/UCR_IE0217/Semestral/IE0217/Semana08/Clase15/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/main_analizador_aritmetico.cc
+	<iostream>
+	<string>
+	<stack>
+	<queue>
+	<map>
+	"enum_base.h"
+	"aritmetic_base.h"
+	"expsymbol.h"
+	"infix2postfix.h"
+	"postfixEval.h"
+	"aritmetic_expression_eval.h"
+	"d_except.h"
+
+1621956858 /home/freddy/Documents/UCR_IE0217/Semestral/IE0217/Semana08/Clase15/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/postfixEval.h
+
+1621956858 /home/freddy/Documents/UCR_IE0217/Semestral/IE0217/Semana08/Clase15/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/aritmetic_expression_eval.h
+
+1621956858 source:/home/freddy/Documents/UCR_IE0217/Semestral/IE0217/Semana08/Clase15/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/postfixEval.cc
+	<math.h>
+	<iostream>
+	<string>
+	<stack>
+	<queue>
+	<map>
+	<ctype.h>
+	<stdlib.h>
+	"enum_base.h"
+	"aritmetic_base.h"
+	"postfixEval.h"
+	"d_except.h"
+
+1621956858 source:/home/freddy/Documents/UCR_IE0217/Semestral/IE0217/Semana08/Clase15/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/expsymbol.cc
+	<stack>
+	<queue>
+	"enum_base.h"
+	"expsymbol.h"
+
+1622038906 source:/home/freddy/Documents/UCR_IE0217/Semestral/IE0217/Semana08/Clase15/Modulo_17/prj/Analizador_aritmetico_evaluacion_algebraica/aritmetic_base.cc
+	<iostream>
+	<string>
+	<stack>
+	<queue>
+	<map>
+	"enum_base.h"
+	"aritmetic_base.h"
+
