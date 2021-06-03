@@ -127,15 +127,15 @@ float postfixEval::evaluate()
             float valor_variable;                           // Variable para almacenar el valor de la i-ésima variable
             int cantidad_variables = VariableQueue.size();  // Se guarda en una variable la cantidad de variables a las que se les debe asignar un valor.
 
+
             for(int i =0; i<cantidad_variables;i++)         // Se repite el ciclo para la cantidad de variables definidas en la expresión infix
             {
-                cout <<"Inserte valor variable: " <<endl;
-                cin >> valor_variable;                      // Se ingresa el valor de la i-ésima variable por el usuario.
+                cout <<"Inserte el valor de la variable: " << VariableQueue.front() <<endl; // Se solicita el ingreso del valor para cada variable
+                cin >> valor_variable;                                                      // Se ingresa el valor de la i-ésima variable por el usuario.
 
-
-                Map_variables_float["$Var1"]=valor_variable;
-
-                }
+                Map_variables_float[VariableQueue.front()]=valor_variable;  // Se asigna en el mapa de variables el valor para la i-ésima variable en la cola de variables.
+                VariableQueue.pop();                                        // Se elimina el primer elemento de la cola para que en el próximo ciclo el valor ingresado sea el de la siguiente variable.
+            }
 
 // ----------------------------------------------------------------------------------------------------------
 
