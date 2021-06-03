@@ -116,10 +116,37 @@ float postfixEval::evaluate()
 			operandStack.push(DataQueue.front());
 			DataQueue.pop();
 		}
+
+
+
+
 		else if (token == token_variable)
+// ----------------------------------------------------------------------------------------------------------
 		{
+
+            float valor_variable;                           // Variable para almacenar el valor de la i-ésima variable
+            int cantidad_variables = VariableQueue.size();  // Se guarda en una variable la cantidad de variables a las que se les debe asignar un valor.
+
+            for(int i =0; i<cantidad_variables;i++)         // Se repite el ciclo para la cantidad de variables definidas en la expresión infix
+            {
+                cout <<"Inserte valor variable: " <<endl;
+                cin >> valor_variable;                      // Se ingresa el valor de la i-ésima variable por el usuario.
+
+
+                Map_variables_float["$Var1"]=valor_variable;
+
+                }
+
+// ----------------------------------------------------------------------------------------------------------
+
       throw expressionError("postfixEval: VariableQueue not implemented yet");
+
 		}
+
+// ---------------------------------------------------------------------------------------------------------- Final parte Variables
+
+
+
 		else
 		{
 		  if (isFunction(token))
