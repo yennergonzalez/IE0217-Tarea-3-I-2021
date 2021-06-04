@@ -123,21 +123,21 @@ float postfixEval::evaluate()
 		else if (token == token_variable)
 // ----------------------------------------------------------------------------------------------------------
 		{
-
-            string valor_variable;                           // Variable para almacenar el valor de la i-ésima variable
+            string valor_variable;                           // Variable para almacenar la expresión del valor de la i-ésima variable
             int cantidad_variables = VariableQueue.size();  // Se guarda en una variable la cantidad de variables a las que se les debe asignar un valor.
 
-            for(int i =0; i<cantidad_variables;i++)         // Se repite el ciclo para la cantidad de variables definidas en la expresión infix
+            for(int i =0; i<cantidad_variables;i++)         // Se repite el ciclo para la cantidad de variables definidas en la expresión.
             {
                 cout <<"Inserte el valor de la variable: " << VariableQueue.front() <<endl; // Se solicita el ingreso del valor para cada variable
                 cin >> valor_variable;                                                      // Se ingresa el valor de la i-ésima variable por el usuario.
 
-                if(verificar_float(valor_variable)== true){                           // Aquí va la verificación de que cada entrada sea un número válido.
-                    cout << valor_variable;
-                    //Map_variables_float[VariableQueue.front()]=valor_variable;  // Se asigna en el mapa de variables el valor para la i-ésima variable en la cola de variables.
-                    VariableQueue.pop();                                        // Se elimina el primer elemento de la cola para que en el próximo ciclo el valor ingresado sea el de la siguiente variable.
+                if(verificar_float(valor_variable)== true)                                  // Verificación de que cada entrada sea un número válido.
+                {
+                    float variable_numerica = string2float(valor_variable);                 // Conversión a float del string ingresado
+                    Map_variables_float[VariableQueue.front()]=variable_numerica;           // Se asigna en el mapa de variables el valor para la i-ésima variable en la cola de variables.
+                    VariableQueue.pop();                                                    // Se elimina el primer elemento de la cola para que en el próximo ciclo el valor ingresado sea el de la siguiente variable.
                 }
-                else{                                                           // Si no corresponde a un número se imprime un mensaje de error y se hace 'break'.
+                else{                                                                       // Si no corresponde a un número se imprime un mensaje de error y se hace 'break'.
                     cout<<"Valor no válido, por favor ingrese un número."<<endl;
                     break;
                 }
@@ -177,7 +177,7 @@ float postfixEval::evaluate()
 	return expValue;
 }//________________________________________________________________
 
-// ---------------------------------------------------------------- Función verificar número
+// ---------------------------------------------------------------- Función verificar cadena como número
 bool postfixEval::verificar_float(string valor_variable)
 {
   bool exponente_abierto=false;
@@ -320,4 +320,147 @@ bool postfixEval::verificar_float(string valor_variable)
    }
   }
   return true;
+}//______________________________________________________________
+
+
+// ---------------------------------------------------------------- Función convertir a número
+float postfixEval::string2float(string valor_variable)
+{
+  bool exponente_abierto=false;
+  enum e_int_state {inicial,mantiza,decimal,exponente,valor_exponente} estado=inicial;
+  int i = 0;            // Iterador
+  int fin_string = valor_variable.size();
+  string valor="";
+  while(i!=fin_string)
+  {
+    if (!valor_variable[i]) break;
+    char car=valor_variable[i];
+    switch(estado)
+    {
+      case inicial: switch(car)
+                    {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9': valor+=car;
+                                  estado=mantiza;
+                                  i++;
+                        break;
+
+                        default: return false;
+                    }
+                    break;
+
+       case mantiza:
+                    switch(car)
+                    {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9': valor+=car;i++;
+                                  break;
+
+                        case '.': estado=decimal;
+                                  valor+=car;i++;
+                                  break;
+                        case 'e':
+                        case 'E': estado=exponente;
+                                  exponente_abierto=true;
+                                  valor+=car;i++;
+                                  break;
+
+                        default: break;
+
+                    }
+                    break;
+
+       case decimal:
+                    switch(car)
+                    {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9': valor+=car;i++;
+                                  break;
+
+                        case 'e':
+                        case 'E': estado=exponente;
+                                  exponente_abierto=true;
+                                  valor+=car;i++;
+                                  break;
+
+                        default: break;
+
+                    }
+                    break;
+
+       case exponente:
+                    switch(car)
+                    {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9': valor+=car;i++;
+                                  estado=valor_exponente;
+                                  exponente_abierto=false;
+                                  break;
+
+                        case '-': valor+=car;i++;
+                                  estado=valor_exponente;
+                                  break;
+
+                        default: break;
+
+                    }
+                    break;
+
+       case valor_exponente:
+                    switch(car)
+                    {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9': valor+=car;i++;
+                                  estado=valor_exponente;
+                                  exponente_abierto=false;
+                                  break;
+
+                        default: if(exponente_abierto) break;
+
+                    }
+                    break;
+   }
+  }
+  float val=atof(valor.c_str());
+  return val;
 }//______________________________________________________________

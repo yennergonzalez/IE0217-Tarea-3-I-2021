@@ -11,8 +11,7 @@ public:
   postfixEval();
 	float evaluate();
 
-
-	bool verificar_float(string valor_variable);         // Método para verificar si es numero
-
+	bool verificar_float(string valor_variable);       // Método para verificar si la cadena tiene sentido como numero.
+    float string2float(string valor_variable);         // Método para convertir a numero la cadena.
 };//___________________________________________________________
 #endif
