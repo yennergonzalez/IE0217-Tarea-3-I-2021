@@ -10,5 +10,9 @@ private:
 public:
   postfixEval();
 	float evaluate();
+
+
+	bool verificar_float(string valor_variable);         // Método para verificar si es numero
+
 };//___________________________________________________________
 #endif
