@@ -146,8 +146,16 @@ float postfixEval::evaluate()
 // ----------------------------------------------------------------------------------------------------------
 
 // Aquí iría la incorporación de los valores de las variables
+            map<string,float>::const_iterator varend = Map_variables_float.cend();
+            map<string,float>::const_iterator varit = Map_variables_float.cbegin();
+            while (varit != varend)
+            {
+                operandStack.push(varit->second);
+                varit++;
+            }
 
-      throw expressionError("postfixEval: VariableQueue not implemented yet");
+
+      //throw expressionError("postfixEval: VariableQueue not implemented yet");
 
 		}
 
@@ -464,3 +472,4 @@ float postfixEval::string2float(string valor_variable)
   float val=atof(valor.c_str());
   return val;
 }//______________________________________________________________
+__________________________________________________________
