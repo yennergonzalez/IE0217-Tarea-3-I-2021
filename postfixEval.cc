@@ -117,24 +117,22 @@ float postfixEval::evaluate()
 			DataQueue.pop();
 		}
 
-
-
-
-		else if (token == token_variable)
-// ----------------------------------------------------------------------------------------------------------
+		else if (token == token_variable) // Inicio parte Variables
 		{
-            string valor_variable;                           // Variable para almacenar la expresión del valor de la i-ésima variable
+            string valor_variable;                          // Variable para almacenar la expresión del valor de la i-ésima variable
             int cantidad_variables = VariableQueue.size();  // Se guarda en una variable la cantidad de variables a las que se les debe asignar un valor.
-
+            string VariableQueueCopy [cantidad_variables];  // Se hace un array donde se hará una copia de los nombres de las variables ingresadas.
             for(int i =0; i<cantidad_variables;i++)         // Se repite el ciclo para la cantidad de variables definidas en la expresión.
             {
                 cout <<"Inserte el valor de la variable: " << VariableQueue.front() <<endl; // Se solicita el ingreso del valor para cada variable
+                cout << "Nota: si ingresa una variable varias veces, el valor utilizado para esta será el uĺtimo ingresado."<<endl;
                 cin >> valor_variable;                                                      // Se ingresa el valor de la i-ésima variable por el usuario.
 
                 if(verificar_float(valor_variable)== true)                                  // Verificación de que cada entrada sea un número válido.
                 {
                     float variable_numerica = string2float(valor_variable);                 // Conversión a float del string ingresado
                     Map_variables_float[VariableQueue.front()]=variable_numerica;           // Se asigna en el mapa de variables el valor para la i-ésima variable en la cola de variables.
+                    VariableQueueCopy[i]=VariableQueue.front();                             // Se guarda el nombre de la i-ésima variable en el array de copia.
                     VariableQueue.pop();                                                    // Se elimina el primer elemento de la cola para que en el próximo ciclo el valor ingresado sea el de la siguiente variable.
                 }
                 else{                                                                       // Si no corresponde a un número se imprime un mensaje de error y se hace 'break'.
@@ -143,25 +141,25 @@ float postfixEval::evaluate()
                 }
             }
 
-// ----------------------------------------------------------------------------------------------------------
-
-// Aquí iría la incorporación de los valores de las variables
-            map<string,float>::const_iterator varend = Map_variables_float.cend();
-            map<string,float>::const_iterator varit = Map_variables_float.cbegin();
-            while (varit != varend)
+// Incorporación de los valores de las variables
+            for(int i=0; i<cantidad_variables;i++ )         // Se repite el ciclo para la cantidad de variables ingresadas en la expresión.
             {
-                operandStack.push(varit->second);
-                varit++;
+                map<string,float>::const_iterator varend = Map_variables_float.cend();      // Se define un iterador al inicio del mapa.
+                map<string,float>::const_iterator varit = Map_variables_float.cbegin();     // Se guarda también un iterador al final del mapa.
+                while(varit!=varend)                                // Para esta i-ésima variable ingresada, se recorren los pares del mapa hasta encontrar uno que cumpla la condición del if.
+                {
+                    if (VariableQueueCopy[i]==varit->first)         // Se entra al if si el nombre de la i-ésima variable en el array es igual a la llave en el mapa de variables.
+                    {
+                        operandStack.push(varit->second);           // Si se cumple, se añade a la pila de operandos el 'value' asociado a la llave.
+                        varit=varend;                               // Se hace varit=varend para salir del while y seguir con las demás variables.
+                    }
+                    else
+                    {
+                        varit++;                                    // Si no se entró al if, se incrementa varit para probar la condición con el siguiente par llave-valor del mapa de variables.
+                    }
+                }
             }
-
-
-      //throw expressionError("postfixEval: VariableQueue not implemented yet");
-
-		}
-
-// ---------------------------------------------------------------------------------------------------------- Final parte Variables
-
-
+        } // Final parte Variables
 
 		else
 		{
@@ -185,7 +183,7 @@ float postfixEval::evaluate()
 	return expValue;
 }//________________________________________________________________
 
-// ---------------------------------------------------------------- Función verificar cadena como número
+// Función verificar cadena como número
 bool postfixEval::verificar_float(string valor_variable)
 {
   bool exponente_abierto=false;
@@ -331,7 +329,7 @@ bool postfixEval::verificar_float(string valor_variable)
 }//______________________________________________________________
 
 
-// ---------------------------------------------------------------- Función convertir a número
+// Función convertir a número
 float postfixEval::string2float(string valor_variable)
 {
   bool exponente_abierto=false;
@@ -472,4 +470,3 @@ float postfixEval::string2float(string valor_variable)
   float val=atof(valor.c_str());
   return val;
 }//______________________________________________________________
-__________________________________________________________
