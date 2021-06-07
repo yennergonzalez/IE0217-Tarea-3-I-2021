@@ -119,40 +119,72 @@ float postfixEval::evaluate()
 
 		else if (token == token_variable) // Inicio parte Variables
 		{
-            string valor_variable;                          // Variable para almacenar la expresión del valor de la i-ésima variable
-            queue<string> VariableQueueCopy;                // Se hace una cola donde se hará una copia de los nombres de las variables ingresadas.
+            string valor_variable;                                                          // Variable para almacenar la expresión del valor de la i-ésima variable
+            static queue<string> VariableQueueCopy(VariableQueue);                          // Se hace una cola donde se hará una copia de todaslas instancias de variables ingresadas.
+            queue<string> Var_Queue2(VariableQueueCopy);                                    // Segunda copia no estática para recorrer y revisar si se están realizando redefiniciones
+            static unsigned int max_var_queue = VariableQueue.size();                       // Se guarda la cantidad de instancias de variables en la expresión.
+
             cout <<"Inserte el valor de la variable: " << VariableQueue.front() <<endl;     // Se solicita el ingreso del valor para cada variable
-            cout << "Nota: si ingresa una variable varias veces, el valor utilizado para esta será el uĺtimo ingresado."<<endl;
+            cout << "Nota: si ingresa una variable varias veces, el valor utilizado para esta será el primero."<<endl;
             cin >> valor_variable;                                                          // Se ingresa el valor de la i-ésima variable por el usuario.
 
-                if(verificar_float(valor_variable)== true)                                  // Verificación de que cada entrada sea un número válido.
+            bool variable_ya_definida=false;                                // Variable para indicar si a esta variable ya se le definió un valor, se presupone que no ha sido definida.
+            if(verificar_float(valor_variable)== true)                      // Verificación de que cada entrada sea un número válido.
+            {
+                float variable_numerica = string2float(valor_variable);     // Conversión a float del string ingresado
+                if (max_var_queue == Map_variables_float.size())            // Si la cantidad de variables en la cola y en el mapa es la misma, no se están repitiendo variables y por ende no pueden haber redefiniciones.
                 {
-                    float variable_numerica = string2float(valor_variable);                 // Conversión a float del string ingresado
-                    Map_variables_float[VariableQueue.front()]=variable_numerica;           // Se asigna en el mapa de variables el valor para la i-ésima variable en la cola de variables.
-                    VariableQueueCopy.push(VariableQueue.front());                          // Se guarda el nombre de la i-ésima variable en la cola de copia.
-                    VariableQueue.pop();                                                    // Se elimina el primer elemento de la cola para que en el próximo ciclo el valor ingresado sea el de la siguiente variable.
+                    variable_ya_definida=false;
                 }
-                else{                                                                       // Si no corresponde a un número se imprime un mensaje de error y se hace 'break'.
-                    cout<<"Valor no válido, por favor ingrese un número."<<endl;
-                    break;
-                }
-
-                // Incorporación de los valores de las variables
-                map<string,float>::const_iterator varend = Map_variables_float.cend();      // Se define un iterador al final del mapa.
-                map<string,float>::const_iterator varit = Map_variables_float.cbegin();     // Se guarda también un iterador al inicio del mapa.
-                while(varit!=varend)                                                        // Para esta i-ésima variable ingresada, se recorren los pares del mapa hasta encontrar uno que cumpla la condición del if.
+                if (max_var_queue > Map_variables_float.size())             // Si hay más variables en la cola que en el mapa significa que al menos una variable se repite y se deben considerar posibles redefiniciones.
                 {
-                    if (VariableQueueCopy.front()==varit->first)        // Se entra al if si el nombre de la i-ésima variable en el array es igual a la llave en el mapa de variables.
+                    if (Map_variables_float[VariableQueue.front()]!=0)      // Si una variable tiene un value distinto a cero esta definitivamente ya fue definida porque el valor por defecto es cero y por lo tanto no se debe redefinir.
                     {
-                        operandStack.push(varit->second);               // Si se cumple, se añade a la pila de operandos el 'value' asociado a la llave.
-                        VariableQueueCopy.pop();
-                        varit=varend;                                   // Se hace varit=varend para salir del while y seguir con las demás variables.
+                        variable_ya_definida=true;
+                    }
+                    if (Map_variables_float.size()==max_var_queue)          // Se trata de la primera variable y por ende no se le puede haber definido aún un valor.
+                    {
+                        variable_ya_definida = false;
                     }
                     else
                     {
-                        varit++;                                        // Si no se entró al if, se incrementa varit para probar la condición con el siguiente par llave-valor del mapa de variables.
+                        int indices_variables_ya_definidas = VariableQueueCopy.size()-VariableQueue.size(); // Las variables ya definidas son todas las que ya se han recorrido de la cola inicial.
+                        for(int i =0; i<indices_variables_ya_definidas; i++)    // Se recorren todas las variables ya definidas
+                        {
+                            if(Var_Queue2.front()==VariableQueue.front())       // Si el nombre de alguna de las variables ya definidas coincide con el nombre de la variable actual significa que esta ya debe haber sido definida.
+                            {
+                                variable_ya_definida = true;
+                            }
+                            Var_Queue2.pop();                                   // Se avanza a la siguiente variable ya definida en caso de que la del ciclo actual no estuviera definida.
+                        }
                     }
                 }
+                if (variable_ya_definida==false)                                    // Revisa si la variable ya ha sido definida o no.
+                {
+                    Map_variables_float[VariableQueue.front()]=variable_numerica;   // Se asigna en el mapa de variables el valor para la i-ésima variable en la cola de variables en caso de no estar definida.
+                }
+            }
+            else
+            {
+                cout<<"Valor no válido, por favor ingrese un número."<<endl;        // Si no corresponde a un número se imprime un mensaje de error y se hace 'break'.
+                break;
+            }
+            // Incorporación de los valores de las variables
+            map<string,float>::const_iterator varend = Map_variables_float.cend();      // Se define un iterador al final del mapa para saber cuando terminar el recorrido de este.
+            map<string,float>::const_iterator varit = Map_variables_float.cbegin();     // Se guarda un iterador al inicio del mapa.
+            while(varit!=varend)                                                        // Para esta i-ésima variable ingresada, se recorren los pares del mapa hasta encontrar uno que cumpla la condición del if.
+            {
+                if (VariableQueue.front()==varit->first)        // Se entra al if si el nombre de la i-ésima variable en el array es igual a la llave en el mapa de variables.
+                {
+                    operandStack.push(varit->second);               // Si se cumple, se añade a la pila de operandos el 'value' asociado a la llave.
+                    VariableQueue.pop();
+                    varit=varend;                                   // Se hace varit=varend para salir del while y seguir con las demás variables.
+                }
+                else
+                {
+                    varit++;                                        // Si no se entró al if, se incrementa varit para probar la condición con el siguiente par llave-valor del mapa de variables.
+                }
+            }
         } // Final parte Variables
 
 		else
