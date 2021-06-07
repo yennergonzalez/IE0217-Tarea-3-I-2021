@@ -260,7 +260,7 @@ bool infix2Postfix::evaluate_ifFunctions(int &i)
 bool infix2Postfix::evaluate_ifVar(int &i)
 {
   bool salida=false;
-  enum e_int_state {inicio_variable,espera_final_variable} estado=inicio_variable;
+  enum e_int_state {inicio_variable,segundo_caracter,tercer_caracter,espera_final_variable} estado=inicio_variable;
   string variable="";
   while(!salida )
   {
@@ -268,18 +268,48 @@ bool infix2Postfix::evaluate_ifVar(int &i)
     char car=infixExpression[i];
     switch(estado)
     {
-      case inicio_variable:
+        case inicio_variable:
           if (car != '$') return false;
           variable+=car;i++;
-          estado=espera_final_variable;
+          estado=segundo_caracter;
           break;
 
-      case espera_final_variable:
-          if (isalpha(car)||isdigit(car))
+        case espera_final_variable:
+          if (isalpha(car)||isdigit(car)||car=='_')
           {
             variable+=car;i++;
-          }else  salida=true;
-          break;
+          }else salida=true;break;
+
+
+// --------------------------------------------
+        case tercer_caracter:
+          if (isalpha(car)||isdigit(car)||car=='_')
+          {
+            variable+=car;i++;
+            estado=espera_final_variable;
+          }else {throw expressionError("Variable definida incorrectamente. Error en el tercer caracter.");}
+
+        if (i==1)
+        {
+            case segundo_caracter:
+            if (isupper(car))
+            {
+                variable+=car;i++;
+                estado=tercer_caracter;
+            }
+            else
+            {
+                throw expressionError("Variable definida incorrectamente. Error en el segundo caracter.");
+            }
+        }
+// --------------------------------------------
+
+
+
+
+
+
+
     }
   }//while
   //Localiza o crea una $VAR en variables_float
